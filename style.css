@@ -3,15 +3,17 @@ body, html {
     margin: 0;
     padding: 0;
     font-family: 'Helvetica Neue', Arial, sans-serif;
-    background-color: #bacde0;
+    background: linear-gradient(rgb(181, 181, 247),  rgb(94, 131, 105));
     color: rgb(12, 12, 12);
   }
 
+.categories, 
 .container{
     width: 90%;
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 1em;
+    max-height: min-content;
 }
 h1 h2 h3 p{
     margin: 0;
@@ -106,13 +108,14 @@ h1 h2 h3 p{
 
 .grid{
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
     gap: 1.5em;
 }
 
 .category,
 .product{
-    background-color: #fff;
+    /* background-color: #fff; */
+    background: linear-gradient(rgb(207, 69, 166), pink);
     padding: 1em;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -123,14 +126,18 @@ h1 h2 h3 p{
 .category img,
 .product img{
     width: 100%;
-    height: auto;
+    height: 80%;
     border-radius: 8px;
     margin-top: 1em;
+    
 }
 
-.category h3,
+.category h3,{
+    margin: 5px;
+    font-size: 1em;
+}
 .product h3{
-    margin: 0;
+    margin: 5px;
     font-size: 1em;
 }
 
@@ -145,12 +152,13 @@ h1 h2 h3 p{
     background-color: lightgreen;
     
 }
-table legend h3{
+legend h3{
     text-align: center;
 }
 table{
-    width: 100%;
+    width: 90%;
     margin-bottom: 2em;
+    margin-left: 2em;
 }
 
 .comprison-table, th, td{
@@ -379,6 +387,16 @@ button[type="submit"]:hover {
         opacity: 0;
     }
 }
+@keyframes zoom{
+    from{
+        width: 90%;
+        height: 90%;
+    }
+    to{
+        width: 100%;
+        height: 100%;
+    }
+}
 
 .container h2, p:first-of-type{
     animation: flash 2s forwards;
@@ -387,6 +405,9 @@ button[type="submit"]:hover {
 .category, .product{
     overflow: hidden;
     animation: fadeIn 2s ;
+}
+.product:hover{
+    animation: zoom 0.1 forwards;
 }
 
 .offer-text{
@@ -400,4 +421,59 @@ button[type="submit"]:hover {
     padding: 0.3em !important;
     background-color: darkorchid;
     animation: blink 1s ease-in-out infinite;
+}
+
+
+
+/* Style for Product Page */
+
+.card {
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease;
+    height: 100%;
+    
+}
+
+.card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.card-img-top {
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    max-width: 100%;
+    height: auto;
+    object-fit: cover;
+    border-bottom: 1px solid #070505;
+}
+
+.card-body {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Vertical alignment */
+    height: 100%;
+}
+
+.card-title {
+    font-weight: bold;
+    color: #333;
+    font-size: 1.2rem;
+}
+
+.card-text {
+    color: #666;
+}
+
+.btn {
+    /* Utilizing Bootstrap utility classes */
+    margin-top: auto; /* Align button to bottom of card body */
+}
+
+h1 {
+    text-align: center;
+    margin-top: 40px;
 }
