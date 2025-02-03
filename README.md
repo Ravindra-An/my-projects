@@ -1,0 +1,1 @@
+This E-Bazaar Website project is build using HTML, CSS, and JavaScript functionalities. It includes features such as sign-in / sign-up, featued products, adding/removing products to cart, testimonials. 
