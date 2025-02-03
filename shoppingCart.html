@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Shopping Cart</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css" />
   </head>
 
   <body>
@@ -14,7 +14,7 @@
 
       <div class="cart-summary">
         <p id="cart-total">Cart Total: Rs 0.00</p>
-        <button class="cart-chekout-button" id="checkout-button">
+        <button class="cart-checkout-button" id="checkout-button">
           Checkout
         </button>
       </div>
@@ -24,75 +24,77 @@
 
     <script>
       function initializeCart() {
-        console.log(product);
+        localStorage.clear();
+        console.log(products);
 
         const initialCart = [
           {
             id: 1,
             name: "Laptop",
-            price: 1200.0,
+            price: 30000.0,
             quantity: 1,
             image:
-              "https://placehold.co/400x300/f1c1b9/white?text=Premium+Leather+Bag",
+              "https://images.pexels.com/photos/7974/pexels-photo.jpg",
           },
           {
             id: 2,
             name: "Headphones",
-            price: 150.0,
+            price: 900.0,
             quantity: 1,
             image:
-              "https://placehold.co/400x300/f1c1b9/white?text=Premium+Leather+Bag",
+              "https://cdn.pixabay.com/photo/2016/11/19/16/01/audio-1840073_960_720.jpg",
           },
           {
             id: 3,
             name: "Mouse",
-            price: 25.0,
+            price: 400.0,
             quantity: 1,
             image:
-              "https://placehold.co/400x300/f1c1b9/white?text=Premium+Leather+Bag",
+              "https://i.pcmag.com/imagery/reviews/036F6OJGDiqMxgcLPT543MP-1.fit_lim.size_919x518.v1665756333.jpg",
           },
           {
             id: 4,
             name: "Airpods",
-            price: 120.0,
+            price: 1200.0,
             quantity: 1,
             image:
-              "https://placehold.co/400x300/f1c1b9/white?text=Premium+Leather+Bag",
+              "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQYu_gLn3Bb7cu4kpgCcas06wXJzxnvJm5VbA&s",
           },
           {
             id: 5,
-            name: "Cable",
-            price: 10.0,
+            name: "Data Cable",
+            price: 100.0,
             quantity: 1,
             image:
-              "https://placehold.co/400x300/f1c1b9/white?text=Premium+Leather+Bag",
+              "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRMH-0Hl2e2gcydDgZlJhyhyprDtctJ6LpCGQ&s",
           },
           {
             id: 6,
             name: "Keyboard",
-            price: 50.0,
+            price: 500.0,
             quantity: 1,
             image:
-              "https://placehold.co/400x300/f1c1b9/white?text=Premium+Leather+Bag",
+              "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQofJobJnrJD2v0Pfww-KxwOu9gV4neY9ldjQ&s",
           },
           {
             id: 7,
-            name: "Cable",
-            price: 10.0,
+            name: "Charger",
+            price: 300.0,
             quantity: 1,
             image:
-              "https://placehold.co/400x300/f1c1b9/white?text=Premium+Leather+Bag",
+              "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQpuHFABdnD72FAzExZAevXXCR2BYh4bGWj9g&s",
           },
           {
             id: 8,
-            name: "Keyboard",
-            price: 50.0,
+            name: "Printer",
+            price: 5000.0,
             quantity: 1,
             image:
-              "https://placehold.co/400x300/f1c1b9/white?text=Premium+Leather+Bag",
+              "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYgA7Kk5qB6yIFIubBef1P7RdCW9pGMexmZw&s",
           },
         ];
 
+        // Check if the cart is already in localStorage
         if (!localStorage.getItem("cart")) {
           localStorage.setItem("cart", JSON.stringify(initialCart));
         }
@@ -117,15 +119,19 @@
                       <img src="${product.image}" alt="${product.name}">
                       <div class="cart-item-details">
                           <h3 class="cart-item-title">${product.name}</h3>
-                          <p class="cart-item-price">Rs${product.price.toFixed(2)}</p>
+                          <p class="cart-item-price">Rs${product.price.toFixed(
+                            2
+                          )}</p>
                           <div class="cart-item-actions">
-                              <input type="number" value="${product.quantity}" min="1" class="quantity-input">
+                              <input type="number" value="${
+                                product.quantity
+                              }" min="1" class="quantity-input">
                               <button class="remove-button">Remove</button>
                           </div>
                       </div>
                   `;
 
-              cartItemsContainer.appendChild(cartItem);
+              cartItemContainer.appendChild(cartItem);
 
               const removeButton = cartItem.querySelector(".remove-button");
               const quantityInput = cartItem.querySelector(".quantity-input");
@@ -136,7 +142,7 @@
                 loadCartItems();
               });
 
-              quantityInput.addEventListener("change", () => {
+              quantityInput.addEventListener("change", (event) => {
                 product.quantity = parseInt(event.target.value);
                 localStorage.setItem("cart", JSON.stringify(cart));
                 updateCartTotal();
@@ -151,19 +157,19 @@
         }
 
         function updateCartTotal() {
-                let total = 0;
-                const cart = JSON.parse(localStorage.getItem('cart')) || [];
-                cart.forEach(item => {
-                    total += item.price * item.quantity;
-                });
-                cartTotalElement.textContent = `Total: $${total.toFixed(2)}`;
-            }
+          let total = 0;
+          const cart = JSON.parse(localStorage.getItem("cart")) || [];
+          cart.forEach((item) => {
+            total += item.price * item.quantity;
+          });
+          cartTotalElement.textContent = `Total: $${total.toFixed(2)}`;
+        }
 
-            loadCartItems();
+        loadCartItems();
 
-            checkoutButton.addEventListener('click', () => {
-                alert('Proceeding to checkout');
-            });
+        checkoutButton.addEventListener("click", () => {
+          alert("Proceeding to checkout");
+        });
       });
     </script>
   </body>
